@@ -1,0 +1,40 @@
+import random
+
+class Agente:
+    def __init__(self, tipo, recursos):
+        self.tipo = tipo
+        self.recursos = recursos
+
+    def decidir_accion(self, mercado):
+        # Implementar lógica de decisión basada en el tipo de agente y su estado
+        pass
+
+    def interactuar(self, otro):
+        # Implementar lógica de interacción (comercio, inversión, etc.)
+        pass
+
+class Mercado:
+    def __init__(self):
+        self.agentes = []
+
+    def ejecutar_ciclo(self):
+        for agente in self.agentes:
+            agente.decidir_accion(self)
+        
+        # Implementar interacciones entre agentes
+        for i in range(len(self.agentes)):
+            for j in range(i + 1, len(self.agentes)):
+                self.agentes[i].interactuar(self.agentes[j])
+
+# Creación de agentes y mercado
+mercado = Mercado()
+for _ in range(100):  # Ejemplo con 100 agentes
+    tipo = random.choice(['hogar', 'empresa', 'banco'])
+    recursos = random.randint(1000, 10000)
+    mercado.agentes.append(Agente(tipo, recursos))
+
+# Ejecución de la simulación
+for dia in range(365):  # Simulación durante un año
+    mercado.ejecutar_ciclo()
+
+# Aquí se podría implementar análisis de los resultados de la simulación
