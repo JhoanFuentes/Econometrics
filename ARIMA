@@ -1,0 +1,27 @@
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.tsa.arima.model import ARIMA
+
+# Suponiendo que 'datos_economicos.csv' es un archivo con los datos históricos del indicador
+# La columna 'fecha' contiene las fechas y 'indicador' los valores del indicador económico
+
+# Paso 1: Recolección de Datos
+datos = pd.read_csv('datos_economicos.csv', parse_dates=['fecha'], index_col='fecha')
+
+# Paso 2: Preprocesamiento de Datos
+# Aquí se realizarían pasos como limpiar datos faltantes, etc.
+# Por ejemplo: datos.fillna(method='bfill', inplace=True)
+
+# Paso 3: Modelado
+# Usaremos un modelo ARIMA como ejemplo, ajustando sus parámetros (p, d, q)
+modelo = ARIMA(datos['indicador'], order=(5,1,0))
+modelo_ajustado = modelo.fit()
+
+# Paso 4: Predicción
+predicciones = modelo_ajustado.forecast(steps=12)  # Predecir los próximos 12 períodos
+print(predicciones)
+
+# Paso 5: Análisis de Resultados
+# Aquí se evaluaría la precisión del modelo, por ejemplo, comparando con valores reales si están disponibles
+
+# Nota: Este código es un ejemplo simplificado y requeriría ajustes basados en los datos específicos y el indicador elegido.
